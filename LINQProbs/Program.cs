@@ -10,6 +10,7 @@ namespace LINQProbs
     {
         static void Main(string[] args)
         {
+            LinqProblems mylinq = new LinqProblems();
         }
     }
 }
