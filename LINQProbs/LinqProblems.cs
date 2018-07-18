@@ -22,6 +22,8 @@ namespace LINQProbs
 
         public LinqProblems()
         {
+           // ContainsTh(words);
+            //DuplicateNames(names);
             ClassAverage(classGrades);
         }
         public bool ContainsTh(List<string> words)
@@ -32,6 +34,10 @@ namespace LINQProbs
             {
                 wordsContainTh = true;
             }
+            foreach(string word in wordsWithTh)
+            {
+                Console.WriteLine(""+word);
+            }
             return wordsContainTh;
             
         }
@@ -39,15 +45,24 @@ namespace LINQProbs
         public List<string> DuplicateNames(List<string> names)
         {
             var noDupes = names.Distinct().ToList();
+            foreach (string name in noDupes)
+            {
+                Console.WriteLine("" + name);
+            }
             return noDupes;
         }
 
-        public int ClassAverage(List<string> studentGrades)
+        public double ClassAverage(List<string> studentGrades)
         {
-            var studentSplit = studentGrades.Select(s => s.Split(',')).Select(s => s.OrderBy(g => Int32.Parse(g))).Select(s => s.Select(g => g.Take(s.Count() - 2)));
-            var studentAverages = studentSplit.Select(s => s.Sum(g => Int32.Parse(g.ToString()))).Select(s=>s/4);
-            var classAverage = studentAverages.Sum(s => s)/studentAverages.Count();
+            var studentSplit = studentGrades.Select(s => s.Split(',')).Select(s => s.Select(g => Int32.Parse(g)).ToArray());
+            var studentOrder = studentSplit.Select(s => s.OrderBy(g => g).ToArray());
+            var studentGradesLess = studentOrder.Select(s=> s.Skip(1).ToArray());
+            var studentGradeAverage = studentGradesLess.Select(s=> s.Average(g=>g)).ToArray();
+            var classAverage = studentGradeAverage.Average(s => s);
             return classAverage;
+
+
+
            
         }
 
@@ -70,6 +85,7 @@ namespace LINQProbs
                 }
                 letterString += noDupes[i] + repeat;
             }
+            Console.WriteLine(letterString);
             return letterString;
         }
     }
