@@ -68,14 +68,14 @@ namespace LINQProbs
 
         public string LetterCount(string word)
         {
-            string[] letters = word.Split().ToArray();
+            char[] letters = word.ToCharArray();
             var orderletters = letters.OrderBy(l => l);
             var noDupes = orderletters.Distinct().ToArray();
             string letterString = "";
-            for (int i =0; i<noDupes.Count();i++)
+            for (int i =0; i<noDupes.Length;i++)
             {
-                int repeat = 1;
-                for (int j =0; j<letters.Count();i++)
+                int repeat = 0;
+                for (int j =0; j<letters.Length;j++)
                 {
                     
                     if (noDupes[i] ==letters[j])
@@ -83,7 +83,7 @@ namespace LINQProbs
                         repeat++;
                     }
                 }
-                letterString += noDupes[i] + repeat;
+                letterString += noDupes[i].ToString() + repeat;
             }
             Console.WriteLine(letterString);
             return letterString;
